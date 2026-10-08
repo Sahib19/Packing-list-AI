@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Packing List Studio</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">Δ</span><span><strong>Packing List Studio</strong><small>Delta Trophies</small></span></div>
+    <div class="top-actions"><span id="key-status" class="key-status">Checking connection…</span><button id="settings-button" class="ghost-button" type="button">API settings</button></div>
+  </header>
+
+  <main class="shell">
+    <div class="intro">
+      <div><span class="eyebrow">PHOTO TO PRINT-READY LIST</span><h1>Turn handwritten sheets into a packing list.</h1><p>Upload pages in order, review every box, press Final, then export Excel or PDF.</p></div>
+      <div class="stepper"><span class="step active">1&nbsp; Upload</span><span class="step">2&nbsp; Review</span><span class="step">3&nbsp; Final &amp; export</span></div>
+    </div>
+
+    <section id="upload-section" class="panel upload-panel">
+      <div class="section-head"><div><h2>Source pages</h2><p>JPG, PNG, WebP or scanned PDF. Keep the photos in page order.</p></div><span class="badge">Original images stay visible during review</span></div>
+      <label id="drop-zone" class="drop-zone" for="file-input"><span class="upload-icon">↑</span><strong>Drop packing-list photos here</strong><span>or click to choose files</span><input id="file-input" type="file" accept=".jpg,.jpeg,.png,.webp,.pdf" multiple hidden></label>
+      <div id="file-list" class="file-list"></div>
+      <div class="panel-footer"><span id="upload-count" class="muted">No files selected</span><button id="process-button" class="primary-button" type="button" disabled>Read handwritten sheets <span>→</span></button></div>
+      <div id="progress" class="progress hidden"><div class="progress-track"><div id="progress-fill"></div></div><span id="progress-text">Reading pages…</span></div>
+    </section>
+
+    <section id="training-section" class="panel training-panel">
+      <div class="section-head"><div><h2>Add a finished example</h2><p>Upload handwritten photos and the Excel made from them. Check the imported rows, then press Final to teach the app.</p></div><span id="training-count" class="badge">0 verified examples</span></div>
+      <div class="training-fields"><label>Finished Excel (.xlsx)<input id="training-sheet" type="file" accept=".xlsx"></label><label>Matching photos or scanned PDF<input id="training-photos" type="file" accept=".jpg,.jpeg,.png,.webp,.pdf" multiple></label><button id="import-training" class="secondary-button" type="button">Review example →</button></div>
+    </section>
+
+    <section id="review-section" class="hidden">
+      <div class="review-toolbar"><div><span class="eyebrow">REVIEW BEFORE EXPORT</span><h2>Check the packing list</h2><p>Correct every item against the photo. Final saves this approved result as a future example.</p></div><div class="toolbar-actions"><button id="add-box" class="secondary-button" type="button">+ Add box</button><button id="preview-pdf" class="secondary-button" type="button">Preview PDF</button><button id="final-button" class="primary-button" type="button">✓ Final — save verified example</button><button id="download-excel" class="primary-button" type="button" disabled>Download Excel</button><button id="download-pdf" class="primary-button dark" type="button" disabled>Download PDF</button></div></div>
+      <div id="message" class="message hidden"></div>
+      <div id="warnings" class="warnings hidden"></div>
+      <div class="meta-grid panel"><label>Customer / To<input id="customer" placeholder="Customer name"></label><label>Date<input id="packing-date" placeholder="DD-MM-YYYY"></label><label>Private mark<input id="private-mark" placeholder="e.g. VS/34"></label><label>Transport<input id="transport" placeholder="Optional"></label></div>
+      <div class="stats"><span id="box-count">0 boxes</span><span id="item-count">0 items</span><span>Minimum 5 rows per box in exports</span></div>
+      <div class="review-grid">
+        <aside class="source-panel panel"><div class="source-heading"><h3>Original pages</h3><span id="page-indicator"></span></div><div id="page-tabs" class="page-tabs"></div><div id="source-view" class="source-view"><span>Choose a source page</span></div><div class="source-hint">Click a row's page number to inspect the source.</div></aside>
+        <div class="boxes-pane"><div class="boxes-heading"><h3>Boxes</h3><span>Blank rows are added automatically for printing.</span></div><div id="boxes"></div></div>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="settings-dialog" class="settings-dialog"><form method="dialog"><div class="dialog-head"><h2>Gemini API key</h2><button class="icon-button" value="cancel" aria-label="Close">×</button></div><p>Saved on this computer. The key is used only by the local app when reading photos.</p><label>API key<input id="api-key" type="password" autocomplete="off" placeholder="Paste API key"></label><div class="dialog-actions"><button id="save-key" class="primary-button" type="button">Save key</button></div><div id="settings-error" class="error-text"></div></form></dialog>
+  <script src="/static/app.js"></script>
+</body>
+</html>
+
